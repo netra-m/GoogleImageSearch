@@ -4,28 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".ImageSearchActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etQuery"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/btnSearch"
-        android:layout_toLeftOf="@+id/btnSearch"
-        android:layout_toStartOf="@+id/btnSearch"
-        android:hint="@string/search_prompt" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_search"
-        android:id="@+id/btnSearch"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="onImageSearch" />
-
     <com.etsy.android.grid.StaggeredGridView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -33,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:item_margin="8dp"
-        app:column_count="3"
-        android:layout_below="@+id/etQuery"/>
+        app:column_count="3"/>
 
 </RelativeLayout>

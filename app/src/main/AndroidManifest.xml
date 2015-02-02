@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +23,7 @@
         </activity>
         <activity
             android:name=".activities.ImageDisplayActivity"
-            android:label="@string/title_activity_image_display"
+            android:label=""
             android:parentActivityName=".activities.ImageSearchActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

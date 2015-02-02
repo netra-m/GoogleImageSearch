@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.etsy.android.grid.StaggeredGridView;
@@ -33,11 +36,12 @@ import java.util.ArrayList;
 public class ImageSearchActivity extends ActionBarActivity {
 
     private static final int REQUEST_CODE = 333;
-    private EditText etQuery;
+    private String query;
     private StaggeredGridView gvResults;
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter imageResultsAdapter;
     private ImageSearchCriteria imageSearchCriteria;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,6 @@ public class ImageSearchActivity extends ActionBarActivity {
     }
 
     private void setupViews() {
-        etQuery = (EditText) findViewById(R.id.etQuery);
         gvResults = (StaggeredGridView) findViewById(R.id.gvResults);
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -87,15 +90,7 @@ public class ImageSearchActivity extends ActionBarActivity {
         String imageSearchUrl = getImageSearchUrlWithQueryParams();
         imageSearchUrl = imageSearchUrl + "&start=" + offset;
 
-        getImageResultsFromGoogle(imageSearchUrl,false);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_image_search, menu);
-        return true;
+        getImageResultsFromGoogle(imageSearchUrl, false);
     }
 
     @Override
@@ -123,7 +118,9 @@ public class ImageSearchActivity extends ActionBarActivity {
     private void getImageSearchResults() {
         String searchUrl = getImageSearchUrlWithQueryParams();
 
-        getImageResultsFromGoogle(searchUrl, true);
+        if (searchUrl != null) {
+            getImageResultsFromGoogle(searchUrl, true);
+        }
     }
 
     private void getImageResultsFromGoogle(String searchUrl, final boolean clearPreviousCollection) {
@@ -157,9 +154,9 @@ public class ImageSearchActivity extends ActionBarActivity {
     }
 
     private String getImageSearchUrlWithQueryParams() {
-        String query = etQuery.getText().toString();
         if (query == null || query.equals("")) {
             Toast.makeText(this, "Please enter a search term", Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         String searchUrl = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=" + query + "&rsz=8";
@@ -229,6 +226,29 @@ public class ImageSearchActivity extends ActionBarActivity {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = this.getMenuInflater();
+        inflater.inflate(R.menu.menu_image_search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                ImageSearchActivity.this.query = query;
+                getImageSearchResults();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
 }
