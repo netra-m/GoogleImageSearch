@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ImageSearchActivity">
+
+    <item
+        android:id="@+id/miSettings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/title_activity_search_settings"
+        app:showAsAction="always"
+        />
+
+</menu>
