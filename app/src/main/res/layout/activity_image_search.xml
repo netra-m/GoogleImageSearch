@@ -26,19 +26,14 @@
         android:layout_alignParentEnd="true"
         android:onClick="onImageSearch" />
 
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.etsy.android.grid.StaggeredGridView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/gvResults"
-        android:layout_below="@+id/etQuery"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:numColumns="3"
-        android:paddingTop="30dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:item_margin="8dp"
+        app:column_count="3"
+        android:layout_below="@+id/etQuery"/>
 
 </RelativeLayout>

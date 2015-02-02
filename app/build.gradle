@@ -27,4 +27,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile group: 'com.loopj.android', name: 'android-async-http', version: '1.4.4'
     compile group: 'com.squareup.picasso', name: 'picasso', version: '2.4.0'
+    compile group: 'com.etsy.android.grid', name:'library', version:'1.0.5'
 }

@@ -4,18 +4,19 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="110dp"
-        android:layout_height="110dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:id="@+id/ivImage"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_launcher"/>
 
     <TextView
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Image Title"
         android:maxLines="2"
         android:ellipsize="end"
-        android:id="@+id/tvTitle" />
+        android:id="@+id/tvTitle"
+        android:textSize="8sp"/>
 </LinearLayout>

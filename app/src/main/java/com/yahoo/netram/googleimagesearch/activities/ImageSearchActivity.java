@@ -12,9 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.Toast;
 
+import com.etsy.android.grid.StaggeredGridView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.yahoo.netram.googleimagesearch.R;
@@ -34,7 +34,7 @@ public class ImageSearchActivity extends ActionBarActivity {
 
     private static final int REQUEST_CODE = 333;
     private EditText etQuery;
-    private GridView gvResults;
+    private StaggeredGridView gvResults;
     private ArrayList<ImageResult> imageResults;
     private ImageResultsAdapter imageResultsAdapter;
     private ImageSearchCriteria imageSearchCriteria;
@@ -52,7 +52,7 @@ public class ImageSearchActivity extends ActionBarActivity {
 
     private void setupViews() {
         etQuery = (EditText) findViewById(R.id.etQuery);
-        gvResults = (GridView) findViewById(R.id.gvResults);
+        gvResults = (StaggeredGridView) findViewById(R.id.gvResults);
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -123,7 +123,7 @@ public class ImageSearchActivity extends ActionBarActivity {
     private void getImageSearchResults() {
         String searchUrl = getImageSearchUrlWithQueryParams();
 
-        getImageResultsFromGoogle(searchUrl,true);
+        getImageResultsFromGoogle(searchUrl, true);
     }
 
     private void getImageResultsFromGoogle(String searchUrl, final boolean clearPreviousCollection) {
