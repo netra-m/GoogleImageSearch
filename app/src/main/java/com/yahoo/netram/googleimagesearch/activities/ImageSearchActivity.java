@@ -1,6 +1,9 @@
 package com.yahoo.netram.googleimagesearch.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -45,7 +48,6 @@ public class ImageSearchActivity extends ActionBarActivity {
         imageSearchCriteria = new ImageSearchCriteria();
         imageResultsAdapter = new ImageResultsAdapter(this, imageResults);
         gvResults.setAdapter(imageResultsAdapter);
-
     }
 
     private void setupViews() {
@@ -78,30 +80,14 @@ public class ImageSearchActivity extends ActionBarActivity {
         // Use the offset value and add it as a parameter to your API request to retrieve paginated data.
         // Deserialize API response and then construct new objects to append to the adapter
 
-        if(offset >= 64) {
+        if (offset >= 64) {
             return;
         }
 
         String imageSearchUrl = getImageSearchUrlWithQueryParams();
-        imageSearchUrl = imageSearchUrl+"&start="+offset;
+        imageSearchUrl = imageSearchUrl + "&start=" + offset;
 
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-        asyncHttpClient.get(imageSearchUrl, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("DEBUG", response.toString());
-                JSONArray imageResultsJson = null;
-                try {
-                    imageResultsJson = response.getJSONObject("responseData").getJSONArray("results");
-                    imageResultsAdapter.addAll(ImageResult.getFromJSONArray(imageResultsJson));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.e("Error", "JSONException:", e);
-                }
-
-                Log.d("DEBUG", imageResults.toString());
-            }
-        });
+        getImageResultsFromGoogle(imageSearchUrl,false);
     }
 
 
@@ -137,6 +123,15 @@ public class ImageSearchActivity extends ActionBarActivity {
     private void getImageSearchResults() {
         String searchUrl = getImageSearchUrlWithQueryParams();
 
+        getImageResultsFromGoogle(searchUrl,true);
+    }
+
+    private void getImageResultsFromGoogle(String searchUrl, final boolean clearPreviousCollection) {
+
+        if (!isNetworkAvailable()) {
+            Toast.makeText(this, "Unable to access internet", Toast.LENGTH_LONG).show();
+        }
+
         AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
         asyncHttpClient.get(searchUrl, new JsonHttpResponseHandler() {
             @Override
@@ -145,9 +140,12 @@ public class ImageSearchActivity extends ActionBarActivity {
                 JSONArray imageResultsJson = null;
                 try {
                     imageResultsJson = response.getJSONObject("responseData").getJSONArray("results");
-                    imageResults.clear();
-                    imageResultsAdapter.clear();
+                    if (clearPreviousCollection) {
+                        imageResults.clear();
+                        imageResultsAdapter.clear();
+                    }
                     imageResultsAdapter.addAll(ImageResult.getFromJSONArray(imageResultsJson));
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e("Error", "JSONException:", e);
@@ -225,4 +223,12 @@ public class ImageSearchActivity extends ActionBarActivity {
             getImageSearchResults();
         }
     }
+
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
 }
