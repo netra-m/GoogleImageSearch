@@ -29,10 +29,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yahoo.netram.googleimagesearch.activities.ImageSearchActivity" />
         </activity>
-        <activity
-            android:name=".activities.SearchSettingsActivity"
-            android:label="@string/title_activity_search_settings" >
-        </activity>
     </application>
 
 </manifest>

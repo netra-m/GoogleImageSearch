@@ -12,6 +12,7 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,9 @@ public class ImageDisplayActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        requestWindowFeature(Window.FEATURE_ACTION_BAR);
+
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_image_display);
@@ -46,6 +50,7 @@ public class ImageDisplayActivity extends ActionBarActivity {
         tvTitle.setText(Html.fromHtml(imageResult.getTitle()));
 
         Picasso.with(this).load(imageResult.getFullUrl()).into(ivImageResult);
+        getSupportActionBar().hide();
     }
 
 

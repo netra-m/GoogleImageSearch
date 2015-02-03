@@ -84,11 +84,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tableLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:text="Save"
         android:id="@+id/btnSave"
         android:onClick="saveSettings"
         android:layout_gravity="center_horizontal|bottom"
-        android:backgroundTint="@color/bright_foreground_disabled_material_dark"/>
+        android:layout_marginBottom="10dp"/>
 
 </RelativeLayout>
