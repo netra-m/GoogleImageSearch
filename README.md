@@ -26,3 +26,7 @@ User Stories:
 5. Advanced: Improve the user interface and experiment with image assets and/or styling and coloring
 6. Bonus: Use the StaggeredGridView to display improve the grid of image results
 7. Bonus: User can zoom or pan images displayed in full-screen detail view
+
+Walkthrough of all user stories : 
+
+![ScreenShot](https://github.com/netra-m/GoogleImageSearch/blob/master/GoogleImageSearchDemo.gif)
