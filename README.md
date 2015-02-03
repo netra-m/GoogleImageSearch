@@ -1,4 +1,4 @@
-
+This is a Google Image Search app which allows a user to select search filters and paginate results infinitely.
 
 Total time spent : 14 hrs
 
