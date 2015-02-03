@@ -17,7 +17,6 @@
         <item>large</item>
         <item>extra-large</item>
     </string-array>
-
     <string-array name="image_color_array">
         <item>all</item>
         <item>black</item>
@@ -33,7 +32,6 @@
         <item>white</item>
         <item>yellow</item>
     </string-array>
-
     <string-array name="image_type_array">
         <item>all</item>
         <item>faces</item>
@@ -41,5 +39,7 @@
         <item>clip art</item>
         <item>line art</item>
     </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

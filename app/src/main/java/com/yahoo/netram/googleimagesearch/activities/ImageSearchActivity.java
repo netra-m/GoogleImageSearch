@@ -33,7 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class ImageSearchActivity extends ActionBarActivity {
+public class ImageSearchActivity extends ActionBarActivity implements SettingsCallBack {
 
     private static final int REQUEST_CODE = 333;
     private String query;
@@ -101,9 +101,12 @@ public class ImageSearchActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.miSettings) {
-            Intent i = new Intent(this, SearchSettingsActivity.class);
-            i.putExtra("searchCriteria", imageSearchCriteria);
-            startActivityForResult(i, REQUEST_CODE);
+            android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+            SettingsFragment settingsFragment = SettingsFragment.newInstance("Settings");
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", imageSearchCriteria);
+            settingsFragment.setArguments(bundle);
+            settingsFragment.show(fm,"fragment_settings");
         }
 
         return super.onOptionsItemSelected(item);
@@ -249,6 +252,10 @@ public class ImageSearchActivity extends ActionBarActivity {
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+    public void onSettingsSaved(ImageSearchCriteria imageSearchCriteria) {
+        this.imageSearchCriteria = imageSearchCriteria;
+        getImageSearchResults();
     }
 
 }
